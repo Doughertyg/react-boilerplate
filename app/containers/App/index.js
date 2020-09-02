@@ -13,16 +13,17 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
+import appWrapper from './appWrapper';
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <appWrapper>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
-    </div>
+    </appWrapper>
   );
 }
