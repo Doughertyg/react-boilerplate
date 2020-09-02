@@ -1,0 +1,14 @@
+[
+  {
+    "string": "this is a string",
+    "key": "thisisastring"
+  },
+  {
+    "string": "another test string",
+    "key": "anotherteststring"
+  },
+  {
+    "string": "key property ensures strings are unique",
+    "key": "keypropertyensuresstringsareunique"
+  }
+]
