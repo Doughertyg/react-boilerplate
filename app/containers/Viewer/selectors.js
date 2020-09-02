@@ -7,19 +7,27 @@ import { initialState } from './reducer';
 
 const selectViewerDomain = state => state.viewer || initialState;
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by Viewer
- */
-
-const makeSelectViewer = () =>
+const makeSelectError = () =>
   createSelector(
     selectViewerDomain,
-    substate => substate,
+    viewerState => viewerState.error,
   );
 
-export default makeSelectViewer;
-export { selectViewerDomain };
+const makeSelectLoading = () =>
+  createSelector(
+    selectViewerDomain,
+    viewerState => viewerState.loading,
+  );
+
+const makeSelectStringList = () =>
+  createSelector(
+    selectViewerDomain,
+    viewerState => viewerState.stringlist,
+  );
+
+export {
+  makeSelectError,
+  makeSelectLoading,
+  makeSelectStringList,
+  selectViewerDomain,
+};
