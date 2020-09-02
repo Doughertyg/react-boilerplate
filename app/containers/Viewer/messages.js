@@ -11,6 +11,6 @@ export const scope = 'app.containers.Viewer';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'This is the Viewer container!',
+    defaultMessage: 'All strings',
   },
 });
