@@ -22,7 +22,7 @@ function List({ items, loading }) {
 }
 
 List.propTypes = {
-  items: PropTypes.array,
+  items: PropTypes.array.isRequired,
   loading: PropTypes.bool,
 };
 

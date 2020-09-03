@@ -19,10 +19,6 @@ describe('<H1 />', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
   /**
    * Unskip this test to use it
    *

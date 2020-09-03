@@ -7,7 +7,9 @@ describe('viewerReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      // default state params here
+      error: false,
+      loading: false,
+      stringlist: [],
     };
   });
 

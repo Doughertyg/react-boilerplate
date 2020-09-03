@@ -1,13 +1,13 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { getStringList } from '../actions';
+import { GET_STRINGLIST } from '../constants';
 
 describe('Viewer actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('getStringList action', () => {
+    it('has a type of GET_STRINGLIST', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_STRINGLIST,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(getStringList()).toEqual(expected);
     });
   });
 });

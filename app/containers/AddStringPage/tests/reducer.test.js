@@ -7,7 +7,9 @@ describe('addStringPageReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      // default state params here
+      error: false,
+      inputValue: '',
+      loading: false,
     };
   });
 

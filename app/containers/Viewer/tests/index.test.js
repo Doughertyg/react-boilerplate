@@ -9,25 +9,44 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import { browserHistory } from 'react-router-dom';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
 import { Viewer } from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
+import configureStore from '../../../configureStore';
 
 describe('<Viewer />', () => {
+  let store;
+
+  beforeAll(() => {
+    store = configureStore({}, browserHistory);
+  });
+
+  it('Should fetch strings on mount', () => {
+    const mock = jest.fn();
+    render(
+      <Provider store={store}>
+        <IntlProvider locale="en">
+          <Viewer dispatchGetStringList={mock} stringlist={[]} />
+        </IntlProvider>
+      </Provider>,
+    );
+    expect(mock).toHaveBeenCalled();
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Viewer dispatch={dispatch} />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <Viewer dispatchGetStringList={dispatch} />
+        </IntlProvider>
+      </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
   });
 
   /**

@@ -8,26 +8,35 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
+import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
+import { browserHistory } from 'react-router-dom';
 
 import { AddStringPage } from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
+import configureStore from '../../../configureStore';
 
 describe('<AddStringPage />', () => {
+  let store;
+
+  beforeAll(() => {
+    store = configureStore({}, browserHistory);
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <AddStringPage dispatch={dispatch} />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <AddStringPage
+            dispatchAddString={dispatch}
+            dispatchSetInput={dispatch}
+          />
+        </IntlProvider>
+      </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
   });
 
   /**

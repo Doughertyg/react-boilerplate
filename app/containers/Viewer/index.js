@@ -28,7 +28,6 @@ import H1 from '../../components/H1';
 import { getStringList } from './actions';
 import List from '../../components/List';
 import Button from '../../components/Button';
-import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ButtonWrapper = styled.div`
   position: absolute;
@@ -70,6 +69,10 @@ Viewer.propTypes = {
   dispatchGetStringList: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   stringlist: PropTypes.array,
+};
+
+Viewer.defaultProps = {
+  stringlist: [],
 };
 
 const mapStateToProps = createStructuredSelector({
