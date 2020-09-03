@@ -62,6 +62,7 @@ export function AddStringPage({
             window.location.href = '/';
           }}
           label="show all strings"
+          primary
         />
       </ButtonWrapper>
     </>

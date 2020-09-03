@@ -45,15 +45,13 @@ export function Viewer({ dispatchGetStringList, loading, stringlist }) {
     dispatchGetStringList();
   }, []);
 
-  const items = loading ? [<LoadingSpinner />] : stringlist;
-
   return (
     <>
       <CenteredSection>
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
-        <List items={items} />
+        <List items={stringlist} loading={loading} />
       </CenteredSection>
       <ButtonWrapper>
         <Button
@@ -61,6 +59,7 @@ export function Viewer({ dispatchGetStringList, loading, stringlist }) {
             window.location.href = '/add';
           }}
           label="Add string"
+          primary
         />
       </ButtonWrapper>
     </>
