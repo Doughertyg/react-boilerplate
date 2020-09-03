@@ -14,7 +14,7 @@ export function* getStringList() {
     const stringlist = yield call(request, url);
     yield put(setStringList(stringlist));
   } catch (err) {
-    yield put(setStringListError(err));
+    yield put(setStringListError('Error: unable to read strings'));
   }
 }
 

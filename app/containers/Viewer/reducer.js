@@ -31,7 +31,7 @@ const viewerReducer = (state = initialState, action) =>
         break;
       case SET_STRINGLIST_ERROR:
         draft.loading = false;
-        draft.error = action.error;
+        draft.error = action.err;
         break;
       case SET_LOADING:
         draft.loading = action.isLoading;

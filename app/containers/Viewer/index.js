@@ -25,14 +25,15 @@ import messages from './messages';
 import CenteredSection from '../../components/CenteredSection';
 import H1 from '../../components/H1';
 import { getStringList } from './actions';
+import List from '../../components/List';
 
-export function Viewer() {
+export function Viewer({ dispatchGetStringList, stringlist }) {
   useInjectReducer({ key: 'viewer', reducer });
   useInjectSaga({ key: 'viewer', saga });
 
   // get string list after first render
   useEffect(() => {
-    getStringList();
+    dispatchGetStringList();
   }, []);
 
   return (
@@ -40,12 +41,14 @@ export function Viewer() {
       <H1>
         <FormattedMessage {...messages.header} />
       </H1>
+      <List items={stringlist.map(strObj => strObj.string)} />
     </CenteredSection>
   );
 }
 
 Viewer.propTypes = {
-  getStringList: PropTypes.func.isRequired,
+  dispatchGetStringList: PropTypes.func.isRequired,
+  stringlist: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -56,7 +59,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getStringList: dispatch(getStringList()),
+    dispatchGetStringList: () => dispatch(getStringList()),
   };
 }
 
