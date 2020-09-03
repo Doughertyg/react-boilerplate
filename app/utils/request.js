@@ -3,8 +3,14 @@
  * function to make httprequests using the fetch api
  *
  */
-export default function request(url) {
-  return fetch(url)
+export default function request(url, METHOD, body) {
+  const postOpts = {
+    method: METHOD,
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  };
+  const options = METHOD ? postOpts : undefined;
+  return fetch(url, options)
     .then(res => {
       if (res.ok) {
         return res;
@@ -12,5 +18,8 @@ export default function request(url) {
 
       throw new Error(res.statusText);
     })
-    .then(res => res.json());
+    .then(res => (METHOD === 'POST' ? res : res.json()))
+    .catch(err => {
+      throw new Error(err);
+    });
 }
