@@ -10,6 +10,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import AddStringPage from 'containers/AddStringPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Viewer from 'containers/Viewer/Loadable';
 
@@ -21,7 +22,8 @@ export default function App() {
     <AppWrapper>
       <Switch>
         <Route exact path="/" component={Viewer} />
-        <Route component={NotFoundPage} />
+        <Route exact path="/add" component={AddStringPage} />
+        <Route path="" component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
     </AppWrapper>
