@@ -7,19 +7,16 @@ import { initialState } from './reducer';
 
 const selectAddStringPageDomain = state => state.addStringPage || initialState;
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by AddStringPage
- */
-
 const makeSelectInput = () =>
   createSelector(
     selectAddStringPageDomain,
     substate => substate.inputValue,
   );
 
-export default makeSelectInput;
-export { selectAddStringPageDomain };
+const makeSelectLoading = () =>
+  createSelector(
+    selectAddStringPageDomain,
+    substate => substate.loading,
+  );
+
+export { selectAddStringPageDomain, makeSelectInput, makeSelectLoading };

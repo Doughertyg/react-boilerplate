@@ -28,6 +28,7 @@ import H1 from '../../components/H1';
 import { getStringList } from './actions';
 import List from '../../components/List';
 import Button from '../../components/Button';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ButtonWrapper = styled.div`
   position: absolute;
@@ -35,7 +36,7 @@ const ButtonWrapper = styled.div`
   right: 0;
 `;
 
-export function Viewer({ dispatchGetStringList, stringlist }) {
+export function Viewer({ dispatchGetStringList, loading, stringlist }) {
   useInjectReducer({ key: 'viewer', reducer });
   useInjectSaga({ key: 'viewer', saga });
 
@@ -44,13 +45,15 @@ export function Viewer({ dispatchGetStringList, stringlist }) {
     dispatchGetStringList();
   }, []);
 
+  const items = loading ? [<LoadingSpinner />] : stringlist;
+
   return (
     <>
       <CenteredSection>
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
-        <List items={stringlist.map(strObj => strObj.string)} />
+        <List items={items} />
       </CenteredSection>
       <ButtonWrapper>
         <Button
@@ -66,6 +69,7 @@ export function Viewer({ dispatchGetStringList, stringlist }) {
 
 Viewer.propTypes = {
   dispatchGetStringList: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
   stringlist: PropTypes.array,
 };
 

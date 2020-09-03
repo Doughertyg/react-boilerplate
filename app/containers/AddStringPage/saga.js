@@ -1,8 +1,8 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { ADD_STRING } from './constants';
 import request from '../../utils/request';
-import makeSelectInput from './selectors';
-import { setLoading, setError } from './actions';
+import { makeSelectInput } from './selectors';
+import { setLoading, setError, setInput } from './actions';
 
 export function* addString() {
   const url = '/api/v1/strings';
@@ -14,16 +14,16 @@ export function* addString() {
       .split(' ')
       .join(''),
   };
-  console.log('in addString saga, input: ', input, ' url: ', url);
 
   try {
-    console.log('set loading to true');
     yield put(setLoading(true));
     // add the string
     yield call(request, url, 'POST', strObj);
     yield put(setLoading(false));
+    yield put(setInput(''));
   } catch (err) {
     yield put(setError('Error: unable to add string'));
+    yield put(setInput(''));
   }
 }
 

@@ -1,14 +1,26 @@
 [
   {
+    "string": "leopard",
+    "key": "leopard"
+  },
+  {
+    "string": "pikachu",
+    "key": "pikachu"
+  },
+  {
+    "string": "monkey",
+    "key": "monkey"
+  },
+  {
+    "string": "boomerang",
+    "key": "boomerang"
+  },
+  {
     "string": "this is a string",
     "key": "thisisastring"
   },
   {
     "string": "another test string",
     "key": "anotherteststring"
-  },
-  {
-    "string": "key property ensures strings are unique",
-    "key": "keypropertyensuresstringsareunique"
   }
 ]

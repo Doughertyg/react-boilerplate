@@ -21,8 +21,9 @@ import CenteredSection from '../../components/CenteredSection';
 import H1 from '../../components/H1';
 import Form from '../../components/Form';
 import { setInput, addString } from './actions';
-import makeSelectInput from './selectors';
+import { makeSelectInput, makeSelectLoading } from './selectors';
 import Button from '../../components/Button';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ButtonWrapper = styled.div`
   position: absolute;
@@ -34,6 +35,7 @@ export function AddStringPage({
   dispatchAddString,
   dispatchSetInput,
   inputString,
+  loading,
 }) {
   useInjectReducer({ key: 'addStringPage', reducer });
   useInjectSaga({ key: 'addStringPage', saga });
@@ -44,11 +46,15 @@ export function AddStringPage({
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
-        <Form
-          handleInputChange={evt => dispatchSetInput(evt.target.value)}
-          handleSubmit={dispatchAddString}
-          inputValue={inputString}
-        />
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <Form
+            handleInputChange={evt => dispatchSetInput(evt.target.value)}
+            handleSubmit={dispatchAddString}
+            inputValue={inputString}
+          />
+        )}
       </CenteredSection>
       <ButtonWrapper>
         <Button
@@ -66,10 +72,12 @@ AddStringPage.propTypes = {
   dispatchAddString: PropTypes.func.isRequired,
   dispatchSetInput: PropTypes.func.isRequired,
   inputString: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   inputString: makeSelectInput(),
+  loading: makeSelectLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
