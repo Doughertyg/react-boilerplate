@@ -1,6 +1,7 @@
 /* eslint consistent-return:0 import/order:0 */
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const logger = require('./logger');
 
 const api = require('./api/v1/api');
@@ -15,6 +16,7 @@ const ngrok =
 const { resolve } = require('path');
 const app = express();
 
+app.use(bodyParser.json());
 app.use('/api/v1', api);
 
 // In production we need to pass these values in instead of relying on webpack

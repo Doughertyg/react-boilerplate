@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs').promises;
 const path = require('path');
+const filePath = path.resolve(__dirname, '../../data/strings.json');
 
 /** GET /api/v1/strings */
 router.get('/strings', (req, res) => {
-  const filePath = path.resolve(__dirname, '../../data/strings.json');
   fs.readFile(filePath)
     .then(data => {
       const strings = JSON.parse(data);
@@ -16,26 +16,16 @@ router.get('/strings', (req, res) => {
 
 /** POST /api/v1/strings */
 router.post('/strings', (req, res) => {
-  const str = req.body.string;
-  fs.readFile('../../data/strings.json')
+  const strObj = req.body;
+  fs.readFile(filePath)
     .then(data => {
       const strings = JSON.parse(data);
-      const newArr = [
-        ...strings,
-        {
-          string: str,
-          key: str
-            .trim()
-            .split(' ')
-            .join(''),
-        },
-      ];
-
+      const newArr = [strObj, ...strings];
       return newArr;
     })
     .then(arr => {
       const data = JSON.stringify(arr, null, 2);
-      return fs.writeFile('../../data/strings.json', data);
+      return fs.writeFile(filePath, data);
     })
     .then(() => res.status(200).end())
     .catch(err => res.status(500).send(`error saving file: ${err}`));
