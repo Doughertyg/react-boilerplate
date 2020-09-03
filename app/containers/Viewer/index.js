@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -26,6 +27,13 @@ import CenteredSection from '../../components/CenteredSection';
 import H1 from '../../components/H1';
 import { getStringList } from './actions';
 import List from '../../components/List';
+import Button from '../../components/Button';
+
+const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
 
 export function Viewer({ dispatchGetStringList, stringlist }) {
   useInjectReducer({ key: 'viewer', reducer });
@@ -37,12 +45,22 @@ export function Viewer({ dispatchGetStringList, stringlist }) {
   }, []);
 
   return (
-    <CenteredSection>
-      <H1>
-        <FormattedMessage {...messages.header} />
-      </H1>
-      <List items={stringlist.map(strObj => strObj.string)} />
-    </CenteredSection>
+    <>
+      <CenteredSection>
+        <H1>
+          <FormattedMessage {...messages.header} />
+        </H1>
+        <List items={stringlist.map(strObj => strObj.string)} />
+      </CenteredSection>
+      <ButtonWrapper>
+        <Button
+          handleClick={() => {
+            window.location.href = '/add';
+          }}
+          label="Add string"
+        />
+      </ButtonWrapper>
+    </>
   );
 }
 

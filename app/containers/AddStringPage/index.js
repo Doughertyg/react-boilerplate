@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -21,6 +22,13 @@ import H1 from '../../components/H1';
 import Form from '../../components/Form';
 import { setInput, addString } from './actions';
 import makeSelectInput from './selectors';
+import Button from '../../components/Button';
+
+const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
 
 export function AddStringPage({
   dispatchAddString,
@@ -31,16 +39,26 @@ export function AddStringPage({
   useInjectSaga({ key: 'addStringPage', saga });
 
   return (
-    <CenteredSection>
-      <H1>
-        <FormattedMessage {...messages.header} />
-      </H1>
-      <Form
-        handleInputChange={evt => dispatchSetInput(evt.target.value)}
-        handleSubmit={dispatchAddString}
-        inputValue={inputString}
-      />
-    </CenteredSection>
+    <>
+      <CenteredSection>
+        <H1>
+          <FormattedMessage {...messages.header} />
+        </H1>
+        <Form
+          handleInputChange={evt => dispatchSetInput(evt.target.value)}
+          handleSubmit={dispatchAddString}
+          inputValue={inputString}
+        />
+      </CenteredSection>
+      <ButtonWrapper>
+        <Button
+          handleClick={() => {
+            window.location.href = '/';
+          }}
+          label="show all strings"
+        />
+      </ButtonWrapper>
+    </>
   );
 }
 
