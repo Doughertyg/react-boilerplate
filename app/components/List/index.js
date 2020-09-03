@@ -11,8 +11,10 @@ import Wrapper from './Wrapper';
 import Li from './Li';
 
 function List({ items }) {
-  // eslint-disable-next-line react/no-array-index-key
-  const content = items.map((item, index) => <Li key={index}>{item}</Li>);
+  const content = items.map((item, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <Li key={`${index}-${item.key}`}>{item.string}</Li>
+  ));
   return (
     <Wrapper>
       <ul>{content}</ul>
