@@ -15,11 +15,11 @@ const selectAddStringPageDomain = state => state.addStringPage || initialState;
  * Default selector used by AddStringPage
  */
 
-const makeSelectAddStringPage = () =>
+const makeSelectInput = () =>
   createSelector(
     selectAddStringPageDomain,
-    substate => substate,
+    substate => substate.inputValue,
   );
 
-export default makeSelectAddStringPage;
+export default makeSelectInput;
 export { selectAddStringPageDomain };

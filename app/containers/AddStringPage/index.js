@@ -13,14 +13,20 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectAddStringPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import CenteredSection from '../../components/CenteredSection';
 import H1 from '../../components/H1';
+import Form from '../../components/Form';
+import { setInput, addString } from './actions';
+import makeSelectInput from './selectors';
 
-export function AddStringPage() {
+export function AddStringPage({
+  dispatchAddString,
+  dispatchSetInput,
+  inputString,
+}) {
   useInjectReducer({ key: 'addStringPage', reducer });
   useInjectSaga({ key: 'addStringPage', saga });
 
@@ -29,21 +35,29 @@ export function AddStringPage() {
       <H1>
         <FormattedMessage {...messages.header} />
       </H1>
+      <Form
+        handleInputChange={evt => dispatchSetInput(evt.target.value)}
+        handleSubmit={dispatchAddString}
+        inputValue={inputString}
+      />
     </CenteredSection>
   );
 }
 
 AddStringPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatchAddString: PropTypes.func.isRequired,
+  dispatchSetInput: PropTypes.func.isRequired,
+  inputString: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
-  addStringPage: makeSelectAddStringPage(),
+  inputString: makeSelectInput(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    dispatchSetInput: val => dispatch(setInput(val)),
+    dispatchAddString: () => dispatch(addString()),
   };
 }
 
