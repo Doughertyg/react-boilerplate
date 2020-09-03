@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs').promises;
+const path = require('path');
 
 /** GET /api/v1/strings */
 router.get('/strings', (req, res) => {
-  fs.readFile('../../data/strings.json')
+  const filePath = path.resolve(__dirname, '../../data/strings.json');
+  fs.readFile(filePath)
     .then(data => {
       const strings = JSON.parse(data);
       res.status(200).json(strings);
